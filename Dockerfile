@@ -29,7 +29,6 @@ RUN npm ci --omit=dev 2>/dev/null || true
 # Declare environment variables with default values
 # This documents what can be configured and provides sensible defaults
 ENV PUBLIC_API_SERVICE_URL=http://api:8000 \
-    ORIGIN=http://localhost:3000 \
     HOST=0.0.0.0 \
     PORT=3000
 

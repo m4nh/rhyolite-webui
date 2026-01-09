@@ -30,11 +30,6 @@ spec:
                 configMapKeyRef:
                   name: rhyolite-config
                   key: PUBLIC_API_SERVICE_URL
-            - name: ORIGIN
-              valueFrom:
-                configMapKeyRef:
-                  name: rhyolite-config
-                  key: ORIGIN
             - name: HOST
               valueFrom:
                 configMapKeyRef:

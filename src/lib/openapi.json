@@ -1,0 +1,949 @@
+{
+	"openapi": "3.1.0",
+	"info": { "title": "Rhyolite API", "version": "0.1.0" },
+	"paths": {
+		"/healty": {
+			"get": {
+				"summary": "Healty",
+				"operationId": "healty_healty_get",
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": { "application/json": { "schema": {} } }
+					}
+				}
+			}
+		},
+		"/kind": {
+			"post": {
+				"summary": "Create Kind",
+				"operationId": "create_kind_kind_post",
+				"requestBody": {
+					"content": {
+						"application/json": { "schema": { "$ref": "#/components/schemas/KindCreate" } }
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/KindOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/kind/{name}": {
+			"get": {
+				"summary": "Get Kind",
+				"operationId": "get_kind_kind__name__get",
+				"parameters": [
+					{
+						"name": "name",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "Name" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/KindOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"summary": "Delete Kind",
+				"operationId": "delete_kind_kind__name__delete",
+				"parameters": [
+					{
+						"name": "name",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "Name" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": { "application/json": { "schema": {} } }
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/kinds": {
+			"get": {
+				"summary": "List Kinds",
+				"operationId": "list_kinds_kinds_get",
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": { "$ref": "#/components/schemas/KindOut" },
+									"type": "array",
+									"title": "Response List Kinds Kinds Get"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edges-kind": {
+			"post": {
+				"summary": "Create Edges Kind",
+				"operationId": "create_edges_kind_edges_kind_post",
+				"requestBody": {
+					"content": {
+						"application/json": { "schema": { "$ref": "#/components/schemas/EdgesKindCreate" } }
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/EdgesKindOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edges-kinds": {
+			"get": {
+				"summary": "List Edges Kinds",
+				"operationId": "list_edges_kinds_edges_kinds_get",
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": { "$ref": "#/components/schemas/EdgesKindOut" },
+									"type": "array",
+									"title": "Response List Edges Kinds Edges Kinds Get"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edges-kinds/{from_kind}": {
+			"get": {
+				"summary": "List Edges Kinds From",
+				"operationId": "list_edges_kinds_from_edges_kinds__from_kind__get",
+				"parameters": [
+					{
+						"name": "from_kind",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "From Kind" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/EdgesKindOut" },
+									"title": "Response List Edges Kinds From Edges Kinds  From Kind  Get"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edges-kinds/{from_kind}/{to_kind}": {
+			"get": {
+				"summary": "List Edges Kinds From To",
+				"operationId": "list_edges_kinds_from_to_edges_kinds__from_kind___to_kind__get",
+				"parameters": [
+					{
+						"name": "from_kind",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "From Kind" }
+					},
+					{
+						"name": "to_kind",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "To Kind" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/EdgesKindOut" },
+									"title": "Response List Edges Kinds From To Edges Kinds  From Kind   To Kind  Get"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edges-kinds/{from_kind}/{to_kind}/{relation}": {
+			"get": {
+				"summary": "Get Edges Kind",
+				"operationId": "get_edges_kind_edges_kinds__from_kind___to_kind___relation__get",
+				"parameters": [
+					{
+						"name": "from_kind",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "From Kind" }
+					},
+					{
+						"name": "to_kind",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "To Kind" }
+					},
+					{
+						"name": "relation",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "Relation" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/EdgesKindOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edges-kind/{from_kind}/{to_kind}/{relation}": {
+			"delete": {
+				"summary": "Delete Edges Kind",
+				"operationId": "delete_edges_kind_edges_kind__from_kind___to_kind___relation__delete",
+				"parameters": [
+					{
+						"name": "from_kind",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "From Kind" }
+					},
+					{
+						"name": "to_kind",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "To Kind" }
+					},
+					{
+						"name": "relation",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "Relation" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": { "application/json": { "schema": {} } }
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/node": {
+			"post": {
+				"summary": "Create Node",
+				"operationId": "create_node_node_post",
+				"requestBody": {
+					"content": {
+						"application/json": { "schema": { "$ref": "#/components/schemas/NodeCreate" } }
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/NodeOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/node/{id}": {
+			"get": {
+				"summary": "Get Node",
+				"operationId": "get_node_node__id__get",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "Id" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/NodeOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"summary": "Update Node",
+				"operationId": "update_node_node__id__put",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "Id" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": { "schema": { "$ref": "#/components/schemas/NodeUpdate" } }
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/NodeOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"summary": "Delete Node",
+				"operationId": "delete_node_node__id__delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "Id" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": { "application/json": { "schema": {} } }
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/nodes/search": {
+			"post": {
+				"summary": "Search Nodes",
+				"description": "Search nodes by dot-notated payload fields.\n\nExample queries:\n- {\"name\": \"*alpha*\"} -> payload.name ILIKE %alpha%\n- {\"metadata.one\": 2} -> payload.metadata.one == 2\n\nIf `kinds` is omitted or null, all kinds are searched.",
+				"operationId": "search_nodes_nodes_search_post",
+				"requestBody": {
+					"content": {
+						"application/json": { "schema": { "$ref": "#/components/schemas/SearchDatamodel" } }
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": { "$ref": "#/components/schemas/NodeOut" },
+									"type": "array",
+									"title": "Response Search Nodes Nodes Search Post"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edge": {
+			"post": {
+				"summary": "Create Edge",
+				"operationId": "create_edge_edge_post",
+				"requestBody": {
+					"content": {
+						"application/json": { "schema": { "$ref": "#/components/schemas/EdgeCreate" } }
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/EdgeOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/outgoing-edges/{node_id}": {
+			"get": {
+				"summary": "Outgoing Edges",
+				"operationId": "outgoing_edges_outgoing_edges__node_id__get",
+				"parameters": [
+					{
+						"name": "node_id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "Node Id" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/EdgeOut" },
+									"title": "Response Outgoing Edges Outgoing Edges  Node Id  Get"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/incoming-edges/{node_id}": {
+			"get": {
+				"summary": "Incoming Edges",
+				"operationId": "incoming_edges_incoming_edges__node_id__get",
+				"parameters": [
+					{
+						"name": "node_id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "Node Id" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/EdgeOut" },
+									"title": "Response Incoming Edges Incoming Edges  Node Id  Get"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edges/{from_id}/{to_id}": {
+			"get": {
+				"summary": "Edges Between",
+				"operationId": "edges_between_edges__from_id___to_id__get",
+				"parameters": [
+					{
+						"name": "from_id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "From Id" }
+					},
+					{
+						"name": "to_id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "To Id" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/EdgeOut" },
+									"title": "Response Edges Between Edges  From Id   To Id  Get"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/edge/{from_id}/{to_id}/{relation}": {
+			"delete": {
+				"summary": "Delete Edge",
+				"operationId": "delete_edge_edge__from_id___to_id___relation__delete",
+				"parameters": [
+					{
+						"name": "from_id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "From Id" }
+					},
+					{
+						"name": "to_id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "To Id" }
+					},
+					{
+						"name": "relation",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "title": "Relation" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": { "application/json": { "schema": {} } }
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/attachment": {
+			"post": {
+				"summary": "Create Attachment",
+				"operationId": "create_attachment_attachment_post",
+				"parameters": [
+					{
+						"name": "name",
+						"in": "query",
+						"required": false,
+						"schema": { "anyOf": [{ "type": "string" }, { "type": "null" }], "title": "Name" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": { "$ref": "#/components/schemas/Body_create_attachment_attachment_post" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/AttachmentOut" } }
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/attachment/{id}": {
+			"get": {
+				"summary": "Get Attachment",
+				"operationId": "get_attachment_attachment__id__get",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "Id" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": { "application/json": { "schema": {} } }
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"summary": "Delete Attachment",
+				"operationId": "delete_attachment_attachment__id__delete",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "Id" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": { "application/json": { "schema": {} } }
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/attachments/{node_id}": {
+			"get": {
+				"summary": "List Attachments",
+				"operationId": "list_attachments_attachments__node_id__get",
+				"parameters": [
+					{
+						"name": "node_id",
+						"in": "path",
+						"required": true,
+						"schema": { "type": "string", "format": "uuid", "title": "Node Id" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": { "$ref": "#/components/schemas/AttachmentOut" },
+									"title": "Response List Attachments Attachments  Node Id  Get"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"AttachmentOut": {
+				"properties": {
+					"id": { "type": "string", "format": "uuid", "title": "Id" },
+					"node_id": { "type": "string", "format": "uuid", "title": "Node Id" },
+					"mime_type": { "type": "string", "title": "Mime Type" },
+					"name": { "type": "string", "title": "Name" },
+					"created_at": { "type": "string", "format": "date-time", "title": "Created At" }
+				},
+				"type": "object",
+				"required": ["id", "node_id", "mime_type", "name", "created_at"],
+				"title": "AttachmentOut"
+			},
+			"Body_create_attachment_attachment_post": {
+				"properties": {
+					"node_id": { "type": "string", "format": "uuid", "title": "Node Id" },
+					"file": { "type": "string", "format": "binary", "title": "File" }
+				},
+				"type": "object",
+				"required": ["node_id", "file"],
+				"title": "Body_create_attachment_attachment_post"
+			},
+			"EdgeCreate": {
+				"properties": {
+					"from_id": { "type": "string", "format": "uuid", "title": "From Id" },
+					"to_id": { "type": "string", "format": "uuid", "title": "To Id" },
+					"relation": { "type": "string", "title": "Relation" }
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["from_id", "to_id", "relation"],
+				"title": "EdgeCreate"
+			},
+			"EdgeOut": {
+				"properties": {
+					"from_id": { "type": "string", "format": "uuid", "title": "From Id" },
+					"to_id": { "type": "string", "format": "uuid", "title": "To Id" },
+					"relation": { "type": "string", "title": "Relation" },
+					"created_at": { "type": "string", "format": "date-time", "title": "Created At" }
+				},
+				"type": "object",
+				"required": ["from_id", "to_id", "relation", "created_at"],
+				"title": "EdgeOut"
+			},
+			"EdgesKindCreate": {
+				"properties": {
+					"from_kind": { "type": "string", "title": "From Kind" },
+					"to_kind": { "type": "string", "title": "To Kind" },
+					"relation": { "type": "string", "title": "Relation" }
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["from_kind", "to_kind", "relation"],
+				"title": "EdgesKindCreate"
+			},
+			"EdgesKindOut": {
+				"properties": {
+					"from_kind": { "type": "string", "title": "From Kind" },
+					"to_kind": { "type": "string", "title": "To Kind" },
+					"relation": { "type": "string", "title": "Relation" }
+				},
+				"type": "object",
+				"required": ["from_kind", "to_kind", "relation"],
+				"title": "EdgesKindOut"
+			},
+			"HTTPValidationError": {
+				"properties": {
+					"detail": {
+						"items": { "$ref": "#/components/schemas/ValidationError" },
+						"type": "array",
+						"title": "Detail"
+					}
+				},
+				"type": "object",
+				"title": "HTTPValidationError"
+			},
+			"KindCreate": {
+				"properties": {
+					"name": { "type": "string", "title": "Name" },
+					"schema": { "additionalProperties": true, "type": "object", "title": "Schema" }
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["name", "schema"],
+				"title": "KindCreate"
+			},
+			"KindOut": {
+				"properties": {
+					"name": { "type": "string", "title": "Name" },
+					"schema": { "additionalProperties": true, "type": "object", "title": "Schema" }
+				},
+				"type": "object",
+				"required": ["name", "schema"],
+				"title": "KindOut"
+			},
+			"NodeCreate": {
+				"properties": {
+					"kind": { "type": "string", "title": "Kind" },
+					"payload": { "additionalProperties": true, "type": "object", "title": "Payload" }
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["kind"],
+				"title": "NodeCreate"
+			},
+			"NodeOut": {
+				"properties": {
+					"id": { "type": "string", "format": "uuid", "title": "Id" },
+					"kind": { "type": "string", "title": "Kind" },
+					"created_at": { "type": "string", "format": "date-time", "title": "Created At" },
+					"updated_at": { "type": "string", "format": "date-time", "title": "Updated At" },
+					"payload": { "additionalProperties": true, "type": "object", "title": "Payload" }
+				},
+				"type": "object",
+				"required": ["id", "kind", "created_at", "updated_at", "payload"],
+				"title": "NodeOut"
+			},
+			"NodeUpdate": {
+				"properties": {
+					"payload": { "additionalProperties": true, "type": "object", "title": "Payload" }
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["payload"],
+				"title": "NodeUpdate"
+			},
+			"SearchDatamodel": {
+				"properties": {
+					"kinds": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Kinds"
+					},
+					"query": { "additionalProperties": true, "type": "object", "title": "Query" },
+					"limit": { "anyOf": [{ "type": "integer" }, { "type": "null" }], "title": "Limit" }
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"title": "SearchDatamodel"
+			},
+			"ValidationError": {
+				"properties": {
+					"loc": {
+						"items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+						"type": "array",
+						"title": "Location"
+					},
+					"msg": { "type": "string", "title": "Message" },
+					"type": { "type": "string", "title": "Error Type" }
+				},
+				"type": "object",
+				"required": ["loc", "msg", "type"],
+				"title": "ValidationError"
+			}
+		}
+	}
+}

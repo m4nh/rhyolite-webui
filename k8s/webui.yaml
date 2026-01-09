@@ -1,0 +1,103 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rhyolite-webui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: rhyolite-webui
+      app.kubernetes.io/component: frontend
+      app.kubernetes.io/part-of: rhyolite
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: rhyolite-webui
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/part-of: rhyolite
+    spec:
+      containers:
+        - name: rhyolite-webui
+          image: rhyolite-webui:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 10000
+              name: http
+          env:
+            - name: PUBLIC_API_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: rhyolite-config
+                  key: PUBLIC_API_SERVICE_URL
+            - name: ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: rhyolite-config
+                  key: ORIGIN
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: rhyolite-config
+                  key: HOST
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: rhyolite-config
+                  key: PORT
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "25m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 10000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 10000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rhyolite-webui
+  labels:
+    app.kubernetes.io/name: rhyolite-webui
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: rhyolite
+spec:
+  type: ClusterIP
+  ports:
+    - port: 10000
+      targetPort: 10000
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: rhyolite-webui
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: rhyolite
+  
+# ADd config map for environment variables
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rhyolite-config
+data:
+  PUBLIC_API_SERVICE_URL: "http://localhost:8000"
+  ORIGIN: "http://localhost:10000"
+  HOST: "0.0.0.0"
+  PORT: "10000"

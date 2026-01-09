@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@layer components {
+	.sjsf-text {
+		@apply rounded-lg border border-slate-300 bg-white px-3 py-2 shadow-sm placeholder:text-slate-400 focus:border-sky-500 focus:ring-1 focus:ring-sky-500 focus:outline-none sm:text-sm;
+	}
+}

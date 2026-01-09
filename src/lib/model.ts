@@ -84,3 +84,11 @@ export interface BodyCreateAttachment {
 	node_id: UUID;
 	file: Blob;
 }
+
+// Example healty from server
+export interface HealthStatus {
+	ok: boolean;
+	db_schema_ready: boolean;
+	allowed_origins: string[];
+	time: string;
+}

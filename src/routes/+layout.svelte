@@ -3,6 +3,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { setConfig, initGlobalConfig } from '$lib/config';
 	import { page } from '$app/stores';
+	import Status from '$lib/components/Status.svelte';
 
 	let { children, data } = $props();
 
@@ -62,8 +63,7 @@
 			<div
 				class="mt-8 rounded-xl border border-slate-200 bg-white px-3 py-3 text-xs text-slate-600"
 			>
-				<div class="font-medium text-slate-700">API</div>
-				<div class="mt-1 break-all">{data.config.apiServiceUrl}</div>
+				<Status />
 			</div>
 		</aside>
 

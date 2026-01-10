@@ -6,6 +6,7 @@ import type {
 	EdgeOut,
 	EdgesKindCreate,
 	EdgesKindOut,
+	HealthStatus,
 	KindCreate,
 	KindOut,
 	NodeCreate,
@@ -150,7 +151,7 @@ export class RhyoliteApi {
 
 	// --- Health ---
 
-	healty(): Promise<unknown> {
+	healty(): Promise<HealthStatus> {
 		return this.request({ method: 'GET', path: '/healty' });
 	}
 

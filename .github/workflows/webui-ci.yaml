@@ -1,0 +1,97 @@
+name: WEBUI CI
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.19'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Yarn check
+        run: yarn check
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Build
+        run: yarn build
+
+  build-and-push:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.19'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push WebUI image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: |
+            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/rhyolite-webui:${{ github.sha }}
+            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/rhyolite-webui:develop
+          platforms: linux/amd64
+
+  gitops:
+    needs: build-and-push
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout deployment repo
+        uses: actions/checkout@v3
+        with:
+          repository: m4nh/rhyolite-deployment
+          token: ${{ secrets.DEPLOY_REPO_TOKEN }}
+          ref: main
+          path: deployment
+
+      - name: Update develop/kustomization.yaml image tag
+        env:
+          FILE_NAME: deployment/develop/kustomization.yaml
+          IMAGE_NAME: rhyolite-webui
+          NEW_TAG: ${{ github.sha }}
+        run: |
+          yq eval -i '(.images[] | select(.name == env(IMAGE_NAME)) .newTag) = env(NEW_TAG)' $FILE_NAME
+          git -C deployment status --porcelain
+          git -C deployment add develop/kustomization.yaml
+          if ! git -C deployment diff --cached --quiet; then
+            git -C deployment -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m "chore: update ${IMAGE_NAME} tag to ${NEW_TAG}"
+            git -C deployment push
+          else
+            echo "No changes to commit"
+          fi
